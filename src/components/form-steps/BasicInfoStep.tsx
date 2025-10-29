@@ -89,6 +89,9 @@ export function BasicInfoStep({ form }: BasicInfoStepProps) {
                   }
                   initialFocus
                   className="p-3 pointer-events-auto"
+                  captionLayout="dropdown-buttons"
+                  fromYear={1960}
+                  toYear={new Date().getFullYear()}
                 />
               </PopoverContent>
             </Popover>
