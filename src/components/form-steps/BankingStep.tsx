@@ -1,7 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CreditCard, Lock, Shield } from "lucide-react";
 
 interface BankingStepProps {
@@ -21,34 +20,6 @@ export function BankingStep({ form }: BankingStepProps) {
           All data is encrypted and secure.
         </p>
       </div>
-
-      <FormField
-        control={form.control}
-        name="bankName"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Bank Name</FormLabel>
-            <Select onValueChange={field.onChange} value={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your bank" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="chase">Chase Bank</SelectItem>
-                <SelectItem value="bank-of-america">Bank of America</SelectItem>
-                <SelectItem value="wells-fargo">Wells Fargo</SelectItem>
-                <SelectItem value="citibank">Citibank</SelectItem>
-                <SelectItem value="us-bank">U.S. Bank</SelectItem>
-                <SelectItem value="td-bank">TD Bank</SelectItem>
-                <SelectItem value="capital-one">Capital One</SelectItem>
-                <SelectItem value="other">Other Bank</SelectItem>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
 
       <FormField
         control={form.control}
