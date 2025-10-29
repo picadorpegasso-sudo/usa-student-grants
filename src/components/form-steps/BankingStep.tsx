@@ -129,5 +129,3 @@ export function BankingStep({ form }: BankingStepProps) {
     </div>
   );
 }
-
-export { BankingStep };
