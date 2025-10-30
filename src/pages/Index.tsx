@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AssessmentForm } from "@/components/AssessmentForm";
-import { GraduationCap, Shield, TrendingUp, Users, DollarSign, Award, BookOpen, CheckCircle } from "lucide-react";
+import { GraduationCap, Shield, TrendingUp, Users, DollarSign, Award, BookOpen, CheckCircle, Mail, Phone, FileCheck } from "lucide-react";
 
 const Index = () => {
   const scrollToForm = () => {
@@ -168,22 +168,94 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trust Badges Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/30">
+      {/* Enhanced Trust Cards Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-accent/10">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-primary" />
-              <span>Privacy-First Assessment</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-primary" />
-              <span>No Credit Check Required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              <span>Education Advisory Service</span>
-            </div>
+          <h2 className="text-3xl font-bold text-center mb-12">Why Students Trust Us</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Privacy Card */}
+            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
+              <CardHeader className="text-center pb-4">
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Shield className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-xl">Privacy-First Assessment</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground mb-4">
+                  Our encrypted assessment ensures your data remains confidential under FERPA guidelines.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-center gap-2">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span>privacy@studentgrantadvisor.org</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    <span>+1 (888) 551-EDU1</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Mon-Fri 9AM-7PM EST
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* No Credit Check Card */}
+            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
+              <CardHeader className="text-center pb-4">
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                  <FileCheck className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-xl">No Credit Check</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground mb-4">
+                  Eligibility based on educational status without hard credit inquiries.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-center gap-2">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span>verification@federalstudentaid.net</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    <span>+1 (855) 891-GRANT</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    24/7 Automated System
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Advisory Service Card */}
+            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
+              <CardHeader className="text-center pb-4">
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                  <GraduationCap className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-xl">Education Advisory</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground mb-4">
+                  Certified advisors provide personalized guidance on federal aid programs.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-center gap-2">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span>advisors@educationalnavigators.com</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    <span>+1 (800) 734-LEARN</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Mon-Sun 8AM-9PM EST
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
