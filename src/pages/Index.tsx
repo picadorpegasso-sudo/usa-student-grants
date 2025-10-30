@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AssessmentForm } from "@/components/AssessmentForm";
-import { GraduationCap, Shield, TrendingUp, Users, DollarSign, Award, BookOpen, CheckCircle, Mail, Phone, FileCheck } from "lucide-react";
+import { GraduationCap, Shield, TrendingUp, Users, DollarSign, Award, BookOpen, CheckCircle, Mail, Phone, FileCheck, X } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
   const scrollToForm = () => {
     document.getElementById('assessment-form')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const [activeModal, setActiveModal] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -168,109 +171,222 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Trust Cards Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-accent/10">
+      {/* Trust Badges Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Students Trust Us</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Privacy Card */}
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <CardHeader className="text-center pb-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <Shield className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Privacy-First Assessment</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground mb-4">
-                  Our encrypted assessment ensures your data remains confidential under FERPA guidelines.
-                </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-center gap-2">
-                    <Mail className="h-4 w-4 text-primary" />
-                    <span>privacy@studentgrantadvisor.org</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <Phone className="h-4 w-4 text-primary" />
-                    <span>+1 (888) 551-EDU1</span>
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Mon-Fri 9AM-7PM EST
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* No Credit Check Card */}
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <CardHeader className="text-center pb-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <FileCheck className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl">No Credit Check</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground mb-4">
-                  Eligibility based on educational status without hard credit inquiries.
-                </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-center gap-2">
-                    <Mail className="h-4 w-4 text-primary" />
-                    <span>verification@federalstudentaid.net</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <Phone className="h-4 w-4 text-primary" />
-                    <span>+1 (855) 891-GRANT</span>
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    24/7 Automated System
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Advisory Service Card */}
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <CardHeader className="text-center pb-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <GraduationCap className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl">Education Advisory</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-muted-foreground mb-4">
-                  Certified advisors provide personalized guidance on federal aid programs.
-                </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-center gap-2">
-                    <Mail className="h-4 w-4 text-primary" />
-                    <span>advisors@educationalnavigators.com</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <Phone className="h-4 w-4 text-primary" />
-                    <span>+1 (800) 734-LEARN</span>
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Mon-Sun 8AM-9PM EST
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-primary" />
+              <span>Privacy-First Assessment</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-primary" />
+              <span>No Credit Check Required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-primary" />
+              <span>Education Advisory Service</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t">
-        <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
-          <p className="mb-2">© 2024 Student Financial Navigator. Educational Advisory Service.</p>
-          <div className="flex justify-center gap-6">
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-primary transition-colors">Contact Us</a>
+      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t bg-muted/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-semibold mb-4">Contact Information</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-primary" />
+                  <span>support@studentgrantadvisor.org</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-primary" />
+                  <span>+1 (888) 734-EDU1</span>
+                </div>
+                <div>123 Education Boulevard, Suite 500</div>
+                <div>Washington, D.C. 20001</div>
+                <div>Monday-Friday 8:00 AM - 8:00 PM EST</div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Company</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Student Financial Navigator is an independent educational advisory service dedicated to helping students maximize their financial aid opportunities.
+              </p>
+              <div className="flex gap-4 text-xs text-muted-foreground">
+                <span>🔒 256-bit SSL</span>
+                <span>📋 FERPA Compliant</span>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Legal</h3>
+              <div className="space-y-2">
+                <button 
+                  onClick={() => setActiveModal('privacy')}
+                  className="block text-primary hover:underline text-sm transition-colors"
+                >
+                  Privacy Policy
+                </button>
+                <button 
+                  onClick={() => setActiveModal('terms')}
+                  className="block text-primary hover:underline text-sm transition-colors"
+                >
+                  Terms of Service
+                </button>
+                <button 
+                  onClick={() => setActiveModal('contact')}
+                  className="block text-primary hover:underline text-sm transition-colors"
+                >
+                  Contact Us
+                </button>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Certifications</h3>
+              <div className="space-y-2 text-xs text-muted-foreground">
+                <div>🏛️ Authorized Federal Partner</div>
+                <div>💳 PCI DSS Certified</div>
+                <div>🎓 Certified Education Advisors</div>
+                <div>🔐 Bank-Level Encryption</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="pt-8 border-t text-center text-sm text-muted-foreground">
+            <p>© 2024 Student Financial Navigator. Educational Advisory Service. All rights reserved.</p>
+            <p className="mt-2 text-xs">Student Financial Navigator is an independent service and not affiliated with the U.S. Department of Education.</p>
           </div>
         </div>
       </footer>
+
+      {/* Privacy Policy Modal */}
+      {activeModal === 'privacy' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold">Privacy Policy</h3>
+                <button onClick={() => setActiveModal(null)} className="text-muted-foreground hover:text-foreground">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+            <div className="p-6 space-y-4 text-sm">
+              <p>Student Financial Navigator operates the Student Financial Navigator platform, which provides educational advisory services. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.</p>
+              
+              <h4 className="font-semibold mt-4">Information Collection And Use</h4>
+              <p>We collect several different types of information for various purposes to provide and improve our Service to you. This includes personally identifiable information such as name, email address, telephone number, Social Security number, date of birth, physical address, educational history, financial information, and banking details necessary for financial aid assessment purposes.</p>
+
+              <h4 className="font-semibold mt-4">Types of Data Collected</h4>
+              <p>Personal Data including but not limited to identification documents, academic records, financial statements, tax information, and any other documentation required for comprehensive financial aid evaluation. Usage Data including IP address, browser type, browser version, pages visited, time and date of visit, time spent on pages, and other diagnostic data.</p>
+
+              <h4 className="font-semibold mt-4">Data Storage and Security</h4>
+              <p>Your information, including Personal Data, is stored on secure servers with 256-bit SSL encryption and is processed in accordance with the Family Educational Rights and Privacy Act (FERPA), Gramm-Leach-Bliley Act (GLBA), and other applicable federal and state regulations.</p>
+
+              <h4 className="font-semibold mt-4">Data Sharing and Disclosure</h4>
+              <p>We may disclose your Personal Data in the good faith belief that such action is necessary to comply with legal obligations, protect and defend our rights or property, prevent or investigate possible wrongdoing in connection with the Service, protect the personal safety of users of the Service or the public, or protect against legal liability.</p>
+
+              <h4 className="font-semibold mt-4">Data Protection Rights</h4>
+              <p>You have the right to access, update, correct, or delete your personal information. You may also have the right to object to processing, request data portability, and withdraw consent at any time where Student Financial Navigator relied on your consent to process your personal information.</p>
+
+              <h4 className="font-semibold mt-4">Contact Us</h4>
+              <p>If you have any questions about this Privacy Policy, please contact us at privacy@studentgrantadvisor.org</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Terms of Service Modal */}
+      {activeModal === 'terms' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold">Terms of Service</h3>
+                <button onClick={() => setActiveModal(null)} className="text-muted-foreground hover:text-foreground">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+            <div className="p-6 space-y-4 text-sm">
+              <p>Please read these Terms of Service carefully before using the Student Financial Navigator platform operated by Student Financial Navigator. Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.</p>
+
+              <h4 className="font-semibold mt-4">Acceptance of Terms</h4>
+              <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service. These Terms constitute a legally binding agreement between you and Student Financial Navigator regarding your use of the Service.</p>
+
+              <h4 className="font-semibold mt-4">Educational Advisory Services</h4>
+              <p>Student Financial Navigator provides independent educational advisory services including financial aid assessment, scholarship matching, grant identification, and educational funding guidance. Our services are intended for informational purposes only and do not constitute financial, legal, or academic advice.</p>
+
+              <h4 className="font-semibold mt-4">No Guarantee of Results</h4>
+              <p>While we strive to provide accurate and comprehensive financial aid information, we do not guarantee eligibility for any specific grant, scholarship, or financial aid program. Award amounts, eligibility criteria, and application requirements are determined solely by the respective funding organizations and educational institutions.</p>
+
+              <h4 className="font-semibold mt-4">User Responsibilities</h4>
+              <p>You are responsible for providing accurate, current, and complete information in connection with your use of the Service. You are solely responsible for maintaining the confidentiality of your account and password and for restricting access to your computer or device.</p>
+
+              <h4 className="font-semibold mt-4">Limitation of Liability</h4>
+              <p>In no event shall Student Financial Navigator, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.</p>
+
+              <h4 className="font-semibold mt-4">Governing Law</h4>
+              <p>These Terms shall be governed and construed in accordance with the laws of Delaware, United States, without regard to its conflict of law provisions. Any disputes arising from these Terms or your use of the Service shall be resolved in the state or federal courts located in Delaware.</p>
+
+              <h4 className="font-semibold mt-4">Contact Information</h4>
+              <p>For any questions about these Terms of Service, please contact legal@educationalnavigators.com</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Modal */}
+      {activeModal === 'contact' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-2xl w-full">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold">Contact Us</h3>
+                <button onClick={() => setActiveModal(null)} className="text-muted-foreground hover:text-foreground">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-2">General Support</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-primary" />
+                      <span>support@studentgrantadvisor.org</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Phone className="h-4 w-4 text-primary" />
+                      <span>+1 (888) 734-EDU1</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Specialized Departments</h4>
+                  <div className="space-y-2 text-sm">
+                    <div>Privacy: privacy@studentgrantadvisor.org</div>
+                    <div>Legal: legal@educationalnavigators.com</div>
+                    <div>Advisors: advisors@educationalnavigators.com</div>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-4 border-t">
+                <h4 className="font-semibold mb-2">Office Hours</h4>
+                <p className="text-sm">Monday-Friday 8:00 AM - 8:00 PM EST</p>
+                <p className="text-sm mt-2">123 Education Boulevard, Suite 500, Washington, D.C. 20001</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
