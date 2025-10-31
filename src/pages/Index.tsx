@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AssessmentForm } from "@/components/AssessmentForm";
 import { GraduationCap, Shield, TrendingUp, Users, DollarSign, Award, BookOpen, CheckCircle, Mail, Phone, FileCheck, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Index = () => {
   const scrollToForm = () => {
@@ -10,9 +10,75 @@ const Index = () => {
   };
 
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [metrics, setMetrics] = useState({
+    liveUsers: 12,
+    approvedToday: 47,
+    totalApproved: 12473
+  });
+
+  useEffect(() => {
+    // Фейковые метрики в реальном времени
+    const interval = setInterval(() => {
+      setMetrics(prev => ({
+        liveUsers: Math.max(8, prev.liveUsers + Math.floor(Math.random() * 5) - 2),
+        approvedToday: prev.approvedToday + Math.floor(Math.random() * 3),
+        totalApproved: prev.totalApproved + Math.floor(Math.random() * 8)
+      }));
+    }, 15000);
+
+    // Фейковые уведомления
+    const notificationInterval = setInterval(() => {
+      const notifications = [
+        "Sarah from NY just secured $12,500",
+        "Michael from CA approved for $8,200", 
+        "Emily from TX received $15,000 grant",
+        "James from FL qualified for $7,800 aid",
+        "Jessica from IL got $11,200 scholarship"
+      ];
+      const randomNotif = notifications[Math.floor(Math.random() * notifications.length)];
+      
+      // Создаем фейковое уведомление
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-in slide-in-from-right duration-300';
+      notification.innerHTML = `
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          <span class="text-sm">${randomNotif}</span>
+        </div>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
+    }, 30000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(notificationInterval);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Фейковые Live метрики */}
+      <div className="fixed bottom-4 right-4 bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-3 rounded-lg shadow-lg z-40 border">
+        <div className="text-xs space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <span><strong>{metrics.liveUsers}</strong> users online</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span><strong>{metrics.approvedToday}</strong> approved today</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span><strong>{metrics.totalApproved.toLocaleString()}</strong> total approved</span>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/10 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
